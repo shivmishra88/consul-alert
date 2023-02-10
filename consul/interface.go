@@ -82,6 +82,7 @@ type Consul interface {
 	VictorOpsNotifier() *notifier.VictorOpsNotifier
 	HttpEndpointNotifier() *notifier.HttpEndpointNotifier
 	ILertNotifier() *notifier.ILertNotifier
+	TeamsNotifier() *notifier.TeamsNotifier
 
 	CheckChangeThreshold() int
 	UpdateCheckData()
@@ -173,7 +174,11 @@ func DefaultAlertConfig() *ConsulAlertConfig {
 	httpEndpoint := &notifier.HttpEndpointNotifier{
 		Enabled:     false,
 		ClusterName: "Consul-Alerts",
-  }
+    }
+	teams := &notifier.TeamsNotifier{
+		Enabled:     false,
+		ClusterName: "Consul-Alerts",
+	}
     
 	ilert := &notifier.ILertNotifier{
 		Enabled:             false,
@@ -194,6 +199,7 @@ func DefaultAlertConfig() *ConsulAlertConfig {
 		VictorOps:         victorOps,
 		HttpEndpoint:      httpEndpoint,
 		ILert:             ilert,
+		Teams:             teams,
 		Custom:            []string{},
 	}
 

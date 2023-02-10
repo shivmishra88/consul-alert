@@ -253,6 +253,18 @@ func (c *ConsulAlertClient) LoadConfig() {
 			case "consul-alerts/config/notifiers/http-endpoint/payload":
 				valErr = loadCustomValue(&config.Notifiers.HttpEndpoint.Payload, val, ConfigTypeStrMap)
 
+			// Teams notifier config
+			case "consul-alerts/config/notifiers/teams/enabled":
+				valErr = loadCustomValue(&config.Notifiers.Teams.Enabled, val, ConfigTypeBool)
+			case "consul-alerts/config/notifiers/teams/cluster-name":
+				valErr = loadCustomValue(&config.Notifiers.Teams.ClusterName, val, ConfigTypeString)
+			case "consul-alerts/config/notifiers/teams/base-urls":
+				valErr = loadCustomValue(&config.Notifiers.Teams.BaseURLs, val, ConfigTypeStrArray)
+			case "consul-alerts/config/notifiers/teams/endpoint":
+				valErr = loadCustomValue(&config.Notifiers.Teams.Endpoint, val, ConfigTypeString)
+			case "consul-alerts/config/notifiers/teams/payload":
+				valErr = loadCustomValue(&config.Notifiers.Teams.Payload, val, ConfigTypeStrMap)
+
 			// iLert notfier config
 			case "consul-alerts/config/notifiers/ilert/enabled":
 				valErr = loadCustomValue(&config.Notifiers.ILert.Enabled, val, ConfigTypeBool)
@@ -564,6 +576,10 @@ func (c *ConsulAlertClient) VictorOpsNotifier() *notifier.VictorOpsNotifier {
 
 func (c *ConsulAlertClient) HttpEndpointNotifier() *notifier.HttpEndpointNotifier {
 	return c.config.Notifiers.HttpEndpoint
+}
+
+func (c *ConsulAlertClient) TeamsNotifier() *notifier.TeamsNotifier {
+	return c.config.Notifiers.Teams
 }
 
 func (c *ConsulAlertClient) ILertNotifier() *notifier.ILertNotifier {

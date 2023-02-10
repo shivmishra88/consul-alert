@@ -54,6 +54,7 @@ type Notifiers struct {
 	VictorOps         *VictorOpsNotifier         `json:"victorops"`
 	HttpEndpoint      *HttpEndpointNotifier      `json:"http-endpoint"`
 	ILert             *ILertNotifier             `json:"ilert"`
+	Teams             *TeamsNotifier             `json:"teams"`
 	Custom            []string                   `json:"custom"`
 }
 
@@ -85,6 +86,8 @@ func (n Notifiers) GetNotifier(name string) (Notifier, bool) {
 		return n.HttpEndpoint, true
 	case n.ILert != nil && n.ILert.NotifierName() == name:
 		return n.ILert, true
+    case n.Teams != nil && n.Teams.NotifierName() == name:
+		return n.Teams, true
 
 	default:
 		return nil, false
